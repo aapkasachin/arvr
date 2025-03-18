@@ -1,0 +1,32 @@
+using UnityEngine;
+
+public class ChangeAppearance : MonoBehaviour
+{
+    public GameObject cube, sphere, plane;
+    public Material newCubeMaterial, newSphereMaterial, newPlaneMaterial;
+    public Texture newCubeTexture, newSphereTexture, newPlaneTexture;
+
+    public void ChangeCubeAppearance()
+    {
+        Renderer cubeRenderer = cube.GetComponent<Renderer>();
+        cubeRenderer.material = newCubeMaterial;
+        cubeRenderer.material.mainTexture = newCubeTexture;
+        cubeRenderer.material.color = Color.red;
+    }
+
+    public void ChangeSphereAppearance()
+    {
+        Renderer sphereRenderer = sphere.GetComponent<Renderer>();
+        sphereRenderer.material = newSphereMaterial;
+        sphereRenderer.material.mainTexture = newSphereTexture;
+        sphereRenderer.material.color = Color.green;
+    }
+
+    public void ChangePlaneAppearance()
+    {
+        Renderer planeRenderer = plane.GetComponent<Renderer>();
+        planeRenderer.material = newPlaneMaterial;
+        planeRenderer.material.mainTexture = newPlaneTexture;
+        planeRenderer.material.color = Color.blue;
+    }
+}

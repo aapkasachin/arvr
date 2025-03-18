@@ -1,0 +1,13 @@
+using UnityEngine;
+public class tigerrun : MonoBehaviour
+{
+    Animator animator; // Reference to Animator component AudioSource audioSource; // Reference to AudioSource component
+    void Start()
+    {
+        animator = GetComponent<Animator>(); // Get Animator component from the GameObject
+    }
+    public void Run()
+    {
+        animator.SetTrigger("run"); // Triggers the "run" animation
+    }
+}

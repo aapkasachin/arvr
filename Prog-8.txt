@@ -1,0 +1,47 @@
+using UnityEngine;
+using System.Collections;  // <-- Add this to fix the error
+
+public class JumpController : MonoBehaviour
+{
+    private Animator anim;
+    private AudioSource audioSource;
+
+    void Start()
+    {
+        anim = GetComponent<Animator>();
+        if (anim == null)
+        {
+            Debug.LogError("Animator component not found! Ensure your GameObject has an Animator component.");
+        }
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            Debug.LogError("AudioSource component not found! Ensure your GameObject has an AudioSource.");
+        }
+    }
+
+    public void TriggerJump()
+    {
+        if (anim != null)
+        {
+            anim.SetTrigger("Jump");
+        }
+
+        StartCoroutine(PlaySoundWithDelay(0.5f)); // Adjust delay as needed
+    }
+
+    private IEnumerator PlaySoundWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (audioSource != null && audioSource.clip != null)
+        {
+            audioSource.Play();
+        }
+        else
+        {
+            Debug.LogError("AudioSource or AudioClip is missing in JumpController.");
+        }
+    }
+}
