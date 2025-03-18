@@ -1,0 +1,208 @@
+PROG 5 :
+
+square le 2d se add component box controller 2d
+circle mai code add monoscript 
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Prog5 : MonoBehaviour
+{
+    public float speed=10f;
+    public float distance=10f;
+    RaycastHit2D hit;
+    // Start is called before the first frame update
+    void Start()
+    {
+        Debug.Log("raycast starting...");          
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        transform.Rotate(transform.forward*speed*Time.deltaTime);
+        hit=Physics2D.Raycast(transform.position,transform.right,distance);
+    if (hit.collider!=null){
+        Debug.Log("collision with: "+hit.collider.name+" at distance: "+hit.distance);
+        Debug.DrawRay(transform.position,hit.point-(Vector2)transform.position,Color.red);
+        Debug.Log("hit");
+    }
+    else{
+        Debug.DrawRay(transform.position,transform.right*distance,Color.green);
+        Debug.Log("not hit") ;
+    }
+    }
+}
+...............................................................................................................
+
+Prog4(Prakash)
+
+3D obj : terrain
+scale 5 1 5
+pack mang : ass store : styled grass , polygon tree
+terrain insp: paint texture :
+edit terrain layer : grass add
+edit trees :add 3 types
+MASS place trees
+3d obj : capsule : pos 0 1 0
+empty script
+game object : camera 
+main cam del
+caps: new compontent : prog insert : add comp : character controller 
+capsule ke under hoga camera
+
+
+....................................................
+
+Prog 3 (ar vr code pdf)
+
+
+3D : CUBE : SCALE 20 1 20
+golden tiger add kar package manger se
+download from asset store
+tiger idle ko drag kar hirserkey mai
+rot 0 180 0
+scale 3 5 3
+create animation aniamabtion controller
+press on tiger idle then add drag aniamabtion controller to insp
+aniamtoion cont : walk _> run make trasition
+parameter + tigger _run
+press make trans line _> uncheck has exit line
++run conditions
+tiger idle + add comp + new scipt+ tiger run+ cate and add
+ui -> legacy ->button -> on click -> tiger idle -> tiger run -> run
+.................................................................
+
+Prog 2 ( arvr pdf)
+3D: CUBE,SPHERE , PLANE
+ASSET : MATERIAL : name cube , sphere mat, plane mat
+download 3 images of texture name cube texture , ...... import new asset
+make game obj -> add component > new scipt > change appearance
+press game obj -> drag and drop cube ko cube se and so on ...
+color change cube mat : sphere change color :
+drag n drop cube material mai cube mat and son on...
+make buuton ui legacy button 3 buttons cube button sphere and plane 
+text mai jaake ke cube button and so on .... paln butt 290, -170
+sphere button ko 0 -170 0
+cube button mai jaake on click game obj drag  function mai change appearance cube
+..................................................
+
+Prog 1 (AR VR PDF)
+
+3D ADD CUBE SPHERE PLANE 
+EMPTY SCENECE MANAGER
+CREATE SCIPT MONO BEAHVEIOUR SCIPT TRANSFORM OBJES
+SCENCE MANGER DRAG CUBE TO VUBE AND SO ON
+............................................................
+
+
+
+PROG 6 ,7,8
+
+vuforia engine developer portal log in download the package add vuforia engine to unity project in develope create database add euphoria in assets update it if option arises , add database add targets add joker image go to licence manager get the key add the ar camera remove the main camera make an image target select database get golden tiger get tiger hit inside image target in the tiger one add the animation controler tiger enter file from there build settings android and then switch platform player settings under identification Package name com.skj.ARDemo now go back under build settings add open scenes edit preferences external tools jdk sdk ndk run device change in build settings build and run save
+
+3/17, 7:00 AM] Amrit Maheshwari: Step 1 insert the vuphoria engine then add 2 images in the database and add here download the car pack and sound pack 
+[3/17, 7:00 AM] Amrit Maheshwari: Step 2 vuforia ar camera key delete main camera
+[3/17, 7:00 AM] Amrit Maheshwari: Vuforia se 2 imagetarget banaye
+[3/17, 7:02 AM] Amrit Maheshwari: Play on awake ko uncheck on target me image daali audiosource play and pause kiya add audio source also drag and drop car from prefabs onto image
+[3/17, 7:02 AM] Amrit Maheshwari: Image target behaviour mein image daali
+[3/17, 7:04 AM] Amrit Maheshwari: Image sequencing and animation on sequention add animation track and drag and drop the car one for rotaion and one for translation.
+
+take a plane add a car go to windows add animation save with a name make position for 0 and 2 sec , open animation right click create states make new state set it as default and then make new transition from new state to car move click on transition arrow go to parameters + triggre name it as move then on left uncheck the exit time under condition + select move go back to scene add a button from ui draga and drop animator to the car add the script to the car add component mein add audio source play on awake is unchecked button onclick + add car then prog8 move using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Prog8 : MonoBehaviour
+{
+    Animator animator;
+    AudioSource audioSource;
+    
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    public void Move()
+    {
+        animator.SetTrigger("move");
+        audioSource.Play();
+    }
+}
+................................................................................................................................
+
+git hub links
+
+1 TO 9
+
+https://github.com/pranu44/ar.git
+
+1 , 3, 9
+
+https://github.com/Cg2611/ar.git
+
+...................................................................................................................................
+
+
+
+Prog 8 
+
+
+
+
+8th
+
+→ Asset store (Road free) (Package manager) (Golden liger)
+
+→ Road fre → Free → Prefas
+
+→ Plick3rd and drag to screen.
+
+→ Download car from asset store
+
+→ open car → Prefas → Drag ary can on road
+
+→ Create Empty game object
+
+→ Click on free racing car → window → Sequency → Timeline
+
+→ Drag timeline to right side of consiste.
+
+→ Console → create → save
+
+→ Timeline + Animation track Dray and on Free car from hirarchy.
+
+→ Start recording move blue arrow little bit(change sching from to seconds)
+
+→ From 0 day to 3
+
+→ Back 3 to 0
+
+→ O to 3 move fast
+
+→ Select 3rd from free racing cars.
+
+→ Drag arrow to 5.
+
+→ 0 to 5
+
+→ click on + icon on timeline. add auido crack then dots add audio clip play button in timeline
+
+→ UI → Button text nashpoo.
+
+→ Main camera
+
+  -13 10 -20 postion
+
+→ Button → on click Drag frep Ra → Play Divoctor → Play
+
+→ Free racing cars → untick play or make
+
+
+
+
+
+
+ 
+
