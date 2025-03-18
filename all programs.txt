@@ -1,0 +1,209 @@
+1st Programming ------------------------------1st sphere cube, and spheere-----------------
+
+using UnityEngine;
+
+public class TransformObjects : MonoBehaviour
+{
+    public GameObject cube;
+    public GameObject sphere;
+    public GameObject ground;
+
+    void Update()
+    {
+        // Rotate the cube around the Y-axis
+        cube.transform.Rotate(0, 50 * Time.deltaTime, 0);
+
+        // Move the sphere up and down
+        float moveY = Mathf.Sin(Time.time) * 0.5f;
+        sphere.transform.position = new Vector3(2, 1 + moveY, 0);
+
+        // Rotate the ground slightly
+        ground.transform.Rotate(0, 0, 10 * Time.deltaTime);
+    }
+}
+
+-----------------------5th ray cast-----------------------------------
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class Prog5 : MonoBehaviour
+{
+    [SerializeField] float speed = 20f;
+    [SerializeField] float distance = 10f;
+
+    RaycastHit2D hit;
+
+    void Start()
+    {
+        Debug.Log("Press 'Space' to shoot a raycast");
+    }
+
+    void FixedUpdate()
+    {
+        transform.Rotate(Vector3.forward * speed * Time.deltaTime);
+        hit = Physics2D.Raycast(transform.position, transform.right, distance);
+        if (hit.collider != null)
+        {
+            Debug.DrawRay(transform.position, hit.point, Color.red);
+            Debug.Log("Hit: " + hit.collider.name);
+        }
+        else
+        {
+            Debug.DrawRay(transform.position, transform.right * distance, Color.green);
+            Debug.Log("No hit");
+        }
+    }
+
+}
+-----------------------------------------------------------------------------------------
+------------------------------program 4th fist person Run---------------------------------------
+using UnityEngine;
+
+public class firstperson : MonoBehaviour
+{
+    public float moveSpeed = 5f;
+    public float rotationSpeed = 2f;
+    private CharacterController controller;
+    private Camera playerCamera;
+    private float mouseX, mouseY;
+
+    void Start()
+    {
+        controller = GetComponent<CharacterController>();
+
+        if (controller == null)
+        {
+            Debug.LogError("CharacterController is missing from PlayerCapsule! Add it in the Inspector.");
+            this.enabled = false; // Disable script if no CharacterController
+            return;
+        }
+
+        playerCamera = GetComponentInChildren<Camera>();
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    void Update()
+    {
+        if (controller == null) return; // Prevents null reference errors
+
+        // Player Movement
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
+        Vector3 move = transform.right * moveX + transform.forward * moveZ;
+        controller.Move(move * moveSpeed * Time.deltaTime);
+
+        // Mouse Look
+        mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
+        mouseY -= Input.GetAxis("Mouse Y") * rotationSpeed;
+        mouseY = Mathf.Clamp(mouseY, -90f, 90f);
+
+        transform.rotation = Quaternion.Euler(0, mouseX, 0);
+        playerCamera.transform.localRotation = Quaternion.Euler(mouseY, 0, 0);
+    }
+}
+-------------------------------------------------------------------------------------
+---------------------9th multiplyuer VR game ----------------------------------------
+Go to Edit > Project Settings > XR Plugin Management.
+Install OpenXR for VR support.
+Import XR Interaction Toolkit from Package Manager.
+Go to Unity Asset Store.
+Search for "Third Person Controller".
+Import and add it to the scene:
+Drag & Drop ThirdPerson prefab into the Hierarchy.
+code for Cube ----------
+using UnityEngine;
+
+public class CubeCollect : MonoBehaviour  // Must inherit MonoBehaviour
+{
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Triggered by: " + other.name); // Shows in Console
+
+        if (other.CompareTag("Player")) // Checks if the Player touches the cube
+        {
+            Debug.Log("Player touched the cube!"); 
+            FindObjectOfType<GameManager>().CollectCube(gameObject); // Calls GameManager
+        }
+    }
+}
+----------------------
+code for manager
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+public class GameManager : MonoBehaviour
+{
+    public Text scoreText;  // UI for Score
+    public Text timerText;  // UI for Timer
+    public int totalCubes = 5;  // Total number of cubes
+    public float levelTime = 30f;  // Countdown timer
+    public int maxChances = 3;  // Number of lives
+
+    private int score = 0;
+    private float timer;
+    private int chances;
+
+    void Start()
+    {
+        timer = levelTime;  // Set timer to levelTime
+        chances = maxChances;  // Set max lives
+        UpdateUI();  // Update score & timer UI
+    }
+
+    void Update()
+    {
+        timer -= Time.deltaTime;  // Decrease time
+        if (timer <= 0)
+        {
+            EndLevel();  // Restart or end game if time runs out
+        }
+        UpdateUI();
+    }
+
+    public void CollectCube(GameObject cube)
+    {
+        score += 10;  // Add 10 points when collecting a cube
+        Destroy(cube);  // Remove the cube from the scene
+        totalCubes--;  
+
+        if (totalCubes == 0)  
+        {
+            LoadNextLevel();  // Go to next level if all cubes are collected
+        }
+        UpdateUI();
+    }
+
+    void UpdateUI()
+    {
+        scoreText.text = "Score: " + score;  
+        timerText.text = "Time Left: " + Mathf.Ceil(timer);  
+    }
+
+    void EndLevel()
+    {
+        chances--;  // Reduce life by 1
+        if (chances > 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);  // Restart scene
+        }
+        else
+        {
+            Debug.Log("Game Over!");  // Show Game Over message
+        }
+    }
+
+    void LoadNextLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (currentSceneIndex == 0)
+        {
+            SceneManager.LoadScene(1); // Load next level
+        }
+        else
+        {
+            Debug.Log("You Won! Game Completed.");
+        }
+    }
+}
+--------------------------------------
